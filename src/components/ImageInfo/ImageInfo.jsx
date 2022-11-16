@@ -7,7 +7,7 @@ import ImageAPI from 'components/ImageApi';
 
 class ImageInfo extends Component {
   state = {
-    hit: null,
+    hits: null,
     error: null,
     status: 'idle',
   };
@@ -33,7 +33,7 @@ class ImageInfo extends Component {
   // 'resjected' - отклонено!
 
   render() {
-    const { hit, error, status } = this.state;
+    const { hits, error, status } = this.state;
     const { hitName } = this.props;
 
     if (status === 'idle') {
@@ -49,7 +49,7 @@ class ImageInfo extends Component {
     }
 
     if (status === 'resolved') {
-      return <ImageGallery hit={hit} />;
+      return <ImageGallery images={hits} />;
     }
   }
 }

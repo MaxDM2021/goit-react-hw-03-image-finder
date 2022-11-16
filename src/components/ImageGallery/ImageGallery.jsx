@@ -1,16 +1,18 @@
 // import ImageGalleryItem from "components/ImageGalleryItem";
 import "components/Styles/styles.css"
+import ImageGalleryItem from "components/ImageGalleryItem"
 
 
-const  ImageGallery = ({ hits }) => (
-<ul className="ImageGallery">
-    {hits.map(({id, webformatURL, tags, largeImageURL}) => (
-<li 
-key={id}
-className="ImageGalleryItem">
-  <img src={webformatURL} alt={tags} loading="lazy" className="ImageGalleryItem-image"/>
-</li>))}
+const  ImageGallery = ({images, showModal}) => (
+  <div>
+<ul className="ImageGallery" onClick={showModal}>
+    {images.map(image => (
+<ImageGalleryItem 
+key={image.id}
+image={image}>
+</ImageGalleryItem>))}
 </ul>
+</div>
     )
 
 export default ImageGallery

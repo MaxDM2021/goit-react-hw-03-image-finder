@@ -5,17 +5,17 @@ let page = 1;
 
 
 
-export function fetchImage(name) {
-    return fetch(`${BASE_URL}?key=${API_KEY}&q=${name}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
+export function fetchImage(nextName) {
+    return fetch(`${BASE_URL}?key=${API_KEY}&q=${nextName}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
     .then((response) => {
       if (response.ok) {
         return response.json();
       }
 
-      return Promise.reject(new Error(`Нет картинки с названием ${name}`));
+      return Promise.reject(new Error(`Нет картинки с названием ${nextName}`));
     });
 }
 
-const api = {fetchImage}
+const ImageAPI = {fetchImage}
 
-export default api;
+export default ImageAPI;
