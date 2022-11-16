@@ -9,7 +9,8 @@ export function fetchImage(nextName) {
     return fetch(`${BASE_URL}?key=${API_KEY}&q=${nextName}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
     .then((response) => {
       if (response.ok) {
-        return response.json();
+        return  response.json();
+        
       }
 
       return Promise.reject(new Error(`Нет картинки с названием ${nextName}`));

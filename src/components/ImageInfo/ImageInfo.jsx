@@ -7,7 +7,7 @@ import ImageAPI from 'components/ImageApi';
 
 class ImageInfo extends Component {
   state = {
-    hits: null,
+    hits: [],
     error: null,
     status: 'idle',
   };
@@ -19,13 +19,15 @@ class ImageInfo extends Component {
     if (prevName !== nextName) {
       this.setState({ status: 'pending' });
 
-      setTimeout(() => {
         ImageAPI.fetchImage(nextName)
-          .then(hit => this.setState({ hit, status: 'resolved' }))
+          .then(response => {
+            console.log(response) 
+            this.setState({ hits: response?.hits, status: 'resolved' })
+          })
           .catch(error => this.setState({ error, status: 'rejected' }));
-      }, 3000);
+      }
     }
-  }
+  
 
   // 'idle' - простой
   // 'pending' - ожидается
@@ -48,7 +50,7 @@ class ImageInfo extends Component {
       return <ImageFallbackView message={error.message} />;
     }
 
-    if (status === 'resolved') {
+    if (status === 'resolved' && hits.length > 0) {
       return <ImageGallery images={hits} />;
     }
   }
