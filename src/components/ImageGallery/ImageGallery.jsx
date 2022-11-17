@@ -2,7 +2,7 @@
 import 'components/Styles/styles.css';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 
-const ImageGallery = ({ images, showModal }) => (
+const ImageGallery = ({ images = [], showModal }) => (
   <div>
     <ul className="ImageGallery" onClick={showModal}>
       {images.map(image => (

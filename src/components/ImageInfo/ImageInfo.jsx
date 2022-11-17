@@ -19,12 +19,15 @@ class ImageInfo extends Component {
     if (prevName !== nextName) {
       this.setState({ status: 'pending' });
 
+      setTimeout(() => {
+
         ImageAPI.fetchImage(nextName)
           .then(response => {
             console.log(response) 
             this.setState({ hits: response?.hits, status: 'resolved' })
           })
           .catch(error => this.setState({ error, status: 'rejected' }));
+        }, 2000);
       }
     }
   

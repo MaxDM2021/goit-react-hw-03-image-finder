@@ -1,43 +1,32 @@
+// import ImageGalleryItem from '../ImageGalleryItem';
+// import ImageGallery from 'components/ImageGallery';
 import { ImSpinner } from 'react-icons/im';
-import ImageGallery from '../ImageGallery';
-import pendingImage from './pending.jpg';
-
-const styles = {
-    spinner: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: 10,
-      fontSize: 24,
-    },
-  };
-
-export default function Loader ({ imageName }) {
+// import pendingImage from './pending.jpg';
+import "../Styles/styles.css"
 
 
+// const styles = {
+//   spinner: {
+//     display: 'flex',
+//     alignItems: 'center',
+//     marginBottom: 10,
+//     fontSize: 24,
+//   },
+// };
 
-// Нужно разобраться с пробрасыанием image  с сервера
 
 
-    const image = {
-        name: imageName,
-        sprites: {
-          other: {
-            'official-artwork': {
-              front_default: pendingImage,
-            },
-          },
-        },
-        stats: [],
-      };
+export default function Loader({ imageName }) {
 
+  // const image = { webformatURL: pendingImage };
+  // Нужно разобраться с пробрасыанием image  с сервера
 
   return (
-    <div role="alert">
-      <div style={styles.spinner}>
-        <ImSpinner size="32" className="icon-spin" />
-        Загружаем...
-      </div>
-      <ImageGallery image={image} />
+    <div role="alert" className="icon-box">
+      
+      
+      <ImSpinner size="32" className="icon-spin" />
+      {/* <ImageGallery images={image}></ImageGallery> */}
     </div>
   );
 }

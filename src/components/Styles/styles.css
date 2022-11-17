@@ -50,10 +50,10 @@ img {
   min-height: 64px;
   padding-right: 24px;
   padding-left: 24px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 24px;
+  padding-bottom: 24px;
   color: #fff;
-  background-color: #3f51b5;
+  background-image: url(./IMG_20221014_175200.jpg); 
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
@@ -204,4 +204,34 @@ img {
 .Button:hover,
 .Button:focus {
   background-color: #303f9f;
+}
+
+
+
+.icon-spin {
+  margin-right: 10px;
+  animation: icon-spin 2s infinite linear;
+  width: 100px;
+  height: 100px;
+  color: rgba(55, 102, 102, 0.5);
+}
+
+@keyframes icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+
+.icon-box {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 300px;
+margin-bottom: auto;
+
+font-size: 50px;
 }
