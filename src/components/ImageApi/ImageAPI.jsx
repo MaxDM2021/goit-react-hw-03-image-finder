@@ -6,7 +6,7 @@ let page = 1;
 
 
 export function fetchImage(nextName) {
-    return fetch(`${BASE_URL}?key=${API_KEY}&q=${nextName}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
+    return fetch(`${BASE_URL}?key=${API_KEY}&q=${nextName}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=12`)
     .then((response) => {
       if (response.ok) {
         return  response.json();

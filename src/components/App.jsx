@@ -3,17 +3,24 @@ import { ToastContainer } from 'react-toastify';
 import Searchbar from 'components/Searchbar';
 import ImageInfo from 'components/ImageInfo';
 
+
  class App extends Component {
   state = {
     hitName: '',
     // visible: true,
+   
   };
 
   handleFormSubmit = hitName => {
     this.setState({ hitName });
   };
 
+
+
+
   render() {
+
+
     return (
       <div style={{ maxWidth: 1170, margin: '0 auto', padding: 20 }}>
         <Searchbar qwe={this.handleFormSubmit} />
