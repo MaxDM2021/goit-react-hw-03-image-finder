@@ -5,13 +5,17 @@ import 'components/Styles/styles.css';
 
 
 const Button = ({ loadMore }) => {
+
+  function Loader(){
+    loadMore()
+  }
  
  return (
-  <>
- <button type="button" className="Button" onClick={() => {loadMore()}}>
+  <div className="ButtonBox">
+  <button type="button" className="Button" onClick={Loader}>
   Loard more
   </button>
-  </>
+  </div>
  )
 };
 
