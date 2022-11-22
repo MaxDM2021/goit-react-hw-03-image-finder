@@ -27,49 +27,29 @@ class ImageInfo extends Component {
 
    
 
-    if (prevName !== nextName ) {
-      this.setState({status: 'pending', hits: [], page: 1  
-    });
-    
-
-      ImageAPI.fetchImage(nextName)
-        .then(response => {
-          console.log(response);
-          this.setState({
-            hits: response?.hits,
-            total: response?.totalHits,
-            page: response?.page,
-            status: 'resolved',
-          });
-        })
-        .catch(error => this.setState({ error, status: 'rejected' }));
+    if (prevName !== nextName) {
+      this.setState({status: 'pending' });
+      this.fetchAPI()
     }
 
-    if ( prevPage !== nextPage) {
-    
-      ImageAPI.fetchImage(nextName)
-        .then(response => {
-          console.log(response);
-          this.setState({
-            hits: response?.hits,
-            total: response?.totalHits,
-            page: response?.page,
-            status: 'resolved',
-          });
-        })
-        .catch(error => this.setState({ error, status: 'rejected' }));
+    if (prevPage !== nextPage) {
+    this.fetchAPI()
     }
-
-
-
-
 }
 
-
-
-
-
-
+fetchAPI = () => {
+  const nextName = this.props.hitName;
+  
+  ImageAPI.fetchImage(nextName, this.state.page)
+  .then(response => {
+    console.log(response);
+    this.setState(prev=> ({
+      hits: [...prev.hits, ...response?.hits],
+      total: response?.totalHits,
+      status: 'resolved',
+    }))
+    })
+  .catch(error => this.setState({ error, status: 'rejected' }));}
 
   // toggleModal = () => {
   //   this.setState(({ showModal }) => ({

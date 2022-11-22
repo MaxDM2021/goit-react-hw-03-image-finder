@@ -4,7 +4,7 @@ import 'components/Styles/styles.css';
 
 const ImageGalleryItem = ({ image }) => {
     return (
-        <li className="ImageGalleryItem">
+        <li  className="ImageGalleryItem">
             <img
                 src={image.webformatURL}
                 alt={image.tags}

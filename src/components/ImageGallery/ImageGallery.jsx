@@ -13,5 +13,4 @@ const ImageGallery = ({ images = [], showModal }) => (
   </div>
 );
 
-
 export default ImageGallery;
