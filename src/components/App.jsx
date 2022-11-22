@@ -6,14 +6,12 @@ import ImageInfo from 'components/ImageInfo';
 class App extends Component {
   state = {
     hitName: '',
-    page: 1,
-    hits:[],
     // visible: true,
   };
 
   handleFormSubmit = hitName => {
 
-    this.setState({ hitName, page: 1, hits: [] });
+    this.setState({ hitName });
   };
 
 

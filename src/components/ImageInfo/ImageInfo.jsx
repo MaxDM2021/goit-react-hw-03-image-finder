@@ -1,10 +1,12 @@
 import { Component } from 'react';
+import { toast } from 'react-toastify';
 import ImageFallbackView from 'components/ImageFallbackView';
 import ImageGallery from 'components/ImageGallery';
 import Modal from 'components/Modal';
 import Loader from 'components/Loader';
 import ImageAPI from 'components/ImageApi';
 import Button from 'components/Button';
+
 
 class ImageInfo extends Component {
   state = {
@@ -28,8 +30,9 @@ class ImageInfo extends Component {
    
 
     if (prevName !== nextName) {
-      this.setState({status: 'pending' });
-      this.fetchAPI()
+      this.setState({status: 'pending', hits: [] });
+      this.fetchAPI(nextName);
+      toast.success(`You found _____ pictures`);
     }
 
     if (prevPage !== nextPage) {
@@ -40,6 +43,7 @@ class ImageInfo extends Component {
 fetchAPI = () => {
   const nextName = this.props.hitName;
   
+  
   ImageAPI.fetchImage(nextName, this.state.page)
   .then(response => {
     console.log(response);
@@ -47,7 +51,8 @@ fetchAPI = () => {
       hits: [...prev.hits, ...response?.hits],
       total: response?.totalHits,
       status: 'resolved',
-    }))
+    }));
+    
     })
   .catch(error => this.setState({ error, status: 'rejected' }));}
 
@@ -111,6 +116,7 @@ fetchAPI = () => {
             <Modal src={modal} alt={alt} onClose={this.resetModal} />
           )}
           {totalCond > 0 && <Button loadMore={this.loadMore} />}
+          
         </>
       );
     }

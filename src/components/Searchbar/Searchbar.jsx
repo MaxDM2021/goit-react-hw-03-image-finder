@@ -13,23 +13,29 @@ import "components/Styles/styles.css"
 export default class Searchbar extends Component {
   state = {
     imageName: '',
+    
   };
 
   handleNameChange = event => {
-    this.setState({ imageName: event.currentTarget.value.toLowerCase()});
+    this.setState({ imageName: event.currentTarget.value.toLowerCase(),
+      
+    });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-
-
 
     if (this.state.imageName.trim() === ''){
       return toast.error('Введите название изображения!');
       
     }
 
-   this.props.qwe(this.state.imageName)
+    if (this.state.imageName.trim() === false){
+      return toast.error('Такой картинки нет!');
+      
+    }
+
+    this.props.qwe(this.state.imageName)
     this.setState({ imageName: ''});
   };
 
@@ -57,7 +63,6 @@ export default class Searchbar extends Component {
     );
   }
 }
-
 
 
 
