@@ -6,7 +6,7 @@ import Modal from 'components/Modal';
 import Loader from 'components/Loader';
 import ImageAPI from 'components/ImageApi';
 import Button from 'components/Button';
-
+import 'components/Styles/styles.css';
 
 class ImageInfo extends Component {
   state = {
@@ -16,7 +16,7 @@ class ImageInfo extends Component {
     status: 'idle',
     Load: false,
     page: 1,
-    total: 1,
+    total: 0,
     alt: '',
     modal: '',
   };
@@ -27,34 +27,34 @@ class ImageInfo extends Component {
     const prevPage = prevState.page;
     const nextPage = this.state.page;
 
-   
-
     if (prevName !== nextName) {
-      this.setState({status: 'pending', hits: [] });
+      this.setState({ status: 'pending', hits: [], total: 0 });
       this.fetchAPI(nextName);
-      toast.success(`You found _____ pictures`);
     }
 
     if (prevPage !== nextPage) {
-    this.fetchAPI()
+      this.fetchAPI();
     }
-}
 
-fetchAPI = () => {
-  const nextName = this.props.hitName;
-  
-  
-  ImageAPI.fetchImage(nextName, this.state.page)
-  .then(response => {
-    console.log(response);
-    this.setState(prev=> ({
-      hits: [...prev.hits, ...response?.hits],
-      total: response?.totalHits,
-      status: 'resolved',
-    }));
-    
-    })
-  .catch(error => this.setState({ error, status: 'rejected' }));}
+    if(this.state.page === 1 && prevState.total < this.state.total){
+      toast.success(`You found ${this.state.total} pictures`);
+    }
+  }
+
+  fetchAPI = () => {
+    const nextName = this.props.hitName;
+
+    ImageAPI.fetchImage(nextName, this.state.page)
+      .then(response => {
+        console.log(response);
+        this.setState(prev => ({
+          hits: [...prev.hits, ...response?.hits],
+          total: response?.totalHits,
+          status: response?.totalHits === 0 ? 'rejected': 'resolved',
+        }));
+      })
+      .catch(error => this.setState({ error, status: 'rejected' }));
+  };
 
   // toggleModal = () => {
   //   this.setState(({ showModal }) => ({
@@ -97,15 +97,15 @@ fetchAPI = () => {
     const totalCond = total > 0 && Math.ceil(total / 12) !== page && !Load;
 
     if (status === 'idle') {
-      return <div>Введите название картинки!</div>;
+      return <div className="Falltitle">Enter the name of the picture!</div>;
     }
 
     if (status === 'pending') {
       return <Loader hitName={hitName} />;
     }
 
-    if (status === 'rejected') {
-      return <ImageFallbackView message={error.message} />;
+    if (status === 'rejected' ) {
+      return <ImageFallbackView message={error?.message || `No picture with name${this.props.hitName}!!`} />;
     }
 
     if (status === 'resolved' && hits.length > 0) {
@@ -116,7 +116,6 @@ fetchAPI = () => {
             <Modal src={modal} alt={alt} onClose={this.resetModal} />
           )}
           {totalCond > 0 && <Button loadMore={this.loadMore} />}
-          
         </>
       );
     }
