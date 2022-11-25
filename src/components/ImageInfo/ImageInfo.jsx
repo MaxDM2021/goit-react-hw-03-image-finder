@@ -46,6 +46,7 @@ class ImageInfo extends Component {
 
     ImageAPI.fetchImage(nextName, this.state.page)
       .then(response => {
+        this.resetPage();
         console.log(response);
         this.setState(prev => ({
           hits: [...prev.hits, ...response?.hits],
@@ -86,6 +87,16 @@ class ImageInfo extends Component {
     console.log(this.state.request);
   };
 
+  resetPage = () => {
+    this.setState(() => ({
+      page: 1,
+    }));
+  };
+
+
+
+
+
   // 'idle' - простой
   // 'pending' - ожидается
   // 'resolve' - выполнилось с результамом (хорошо)
@@ -123,3 +134,108 @@ class ImageInfo extends Component {
 }
 
 export default ImageInfo;
+
+
+
+
+
+// ===== Вариант 2 =====
+
+// import { Component } from 'react';
+// import { ToastContainer } from 'react-toastify';
+// import Searchbar from 'components/Searchbar';
+// import ImageAPI from './ImageApi';
+// import ImageGallery from './ImageGallery';
+// import Modal from './Modal';
+// import ImageFallbackView from './ImageFallbackView';
+// import Button from './Button';
+// import Loader from './Loader';
+
+
+//  class App extends Component {
+//   state = {
+//     hitName: '',
+//     hits: [],
+//     error: null,
+//     page: 1,
+//     total: 0,
+//     alt: '',
+//     modal: '',
+//     Load: false
+//     // visible: true,
+
+//   };
+
+//   handleFormSubmit = hitName => {
+//     this.setState({ hitName, page: 1, hits: [] });
+//   };
+
+//    loadMore = () => {
+//      this.setState(prevState => ({
+//        page: prevState.page + 1,
+//      }));
+//    };
+//    toggleModal = event => {
+//      if (event.target.nodeName !== 'IMG') {
+//        return;
+//      }
+//      this.setState({
+//        modal: event.target.dataset.src,
+//        alt: event.target.getAttribute('alt'),
+//      });
+//    };
+
+//    resetModal = () => {
+//      this.setState({
+//        modal: '',
+//        alt: '',
+//      });
+//    };
+
+//    componentDidUpdate(_, prevState) {
+//      const prevName = prevState.hitName;
+//      const nextName = this.state.hitName;
+//      const prevPage = prevState.page;
+//      const nextPage = this.state.page;
+
+
+
+//      if (prevName !== nextName || prevPage !== nextPage ) {
+//        this.setState({Load: true})
+
+//        ImageAPI.fetchImage(nextName, this.state.page)
+//          .then(response => {
+//            console.log(response);
+//            this.setState(prev=>({
+//              hits: [...prev.hits, ...response?.hits],
+//              total: response?.totalHits,
+//              // page: response?.page,
+//              status: 'resolved',
+//            }));
+//          })
+//          .catch(error => this.setState({ error}))
+//          .finally(()=>this.setState({Load: false}))
+//      }
+//    }
+
+
+//   render() {
+//   const {modal, error, alt, Load, hits, total, hitName}=this.state
+
+//     return (
+//       <div style={{ maxWidth: 1170, margin: '0 auto', padding: 20 }}>
+//         <Searchbar qwe={this.handleFormSubmit} />
+//         <ToastContainer autoClose={3000} />
+//         {hits.length > 0 && <ImageGallery images={hits} showModal={this.toggleModal} />}
+//         {Load && <Loader hitName={hitName} />}
+//         {error && <ImageFallbackView message={this.state.error.message} />}
+//         {hits.length > 0 && total > hits.length && !Load && <Button loadMore={this.loadMore} />}
+//         {modal !== '' && (
+//           <Modal src={modal} alt={alt} onClose={this.resetModal} />
+//         )}
+//       </div>
+//     );
+//   }
+// }
+
+// export default App
